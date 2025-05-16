@@ -4,6 +4,8 @@ import ScreenWrapper from '../../components/ScreenWrapper';
 import {ArrowsSvg} from '../../assets/svg';
 import {Logo} from '../../assets/images';
 import InputFieldComponent from '../../components/InputFieldComponent';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackNavigatorParams} from '../../navigation/types';
 
 const RegisterScreen = () => {
   const [fullName, setFullName] = useState('');
@@ -13,6 +15,7 @@ const RegisterScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const {navigate} = useNavigation<NavigationProp<RootStackNavigatorParams>>();
 
   return (
     <ScreenWrapper title="Create Account">
@@ -74,10 +77,11 @@ const RegisterScreen = () => {
         />
 
         {/* Create Account Button */}
-        <TouchableOpacity className="flex-row items-center justify-between mt-2 h-[56px] bg-gradient-to-r from-[#3E8283] to-[#1F1F39] rounded-full px-4 w-[264px] self-center shadow-md">
-          <Text className="text-white font-medium text-[16px] text-center ml-2">
+        <TouchableOpacity className="flex-row items-center justify-between mt-5 h-[56px] bg-primary rounded-full px-4 w-[264px] self-center">
+          <Text className="text-white font-Archivo font-bold text-[14px]  leading-[100%] tracking-[0] text-center ml-2">
             Create account
           </Text>
+
           <View className="w-[42px] h-[42px] rounded-full bg-white items-center justify-center">
             <ArrowsSvg />
           </View>
@@ -86,7 +90,13 @@ const RegisterScreen = () => {
         {/* Login Link */}
         <Text className="text-center text-sm mt-8 mb-2 text-gray-500">
           Already have a account?{' '}
-          <Text className="text-[#3E8283] font-semibold underline">Log in</Text>
+          <Text
+            className="text-[#3E8283] font-semibold underline"
+            onPress={() => {
+              navigate('login');
+            }}>
+            Log in
+          </Text>
         </Text>
       </View>
     </ScreenWrapper>
