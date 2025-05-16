@@ -1,4 +1,4 @@
-import {LoginScreen, RegsiterScreen} from '../screens/auth';
+import {LoginScreen, RegisterScreen} from '../screens/auth';
 import {HomeScreen} from '../screens';
 import {RootStackNavigatorParams} from './types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -13,7 +13,7 @@ export const defaultScreenOptions = {
 export const AuthStack = () => (
   <Stack.Navigator screenOptions={defaultScreenOptions}>
     <Stack.Screen name="login" component={LoginScreen} />
-    <Stack.Screen name="register" component={RegsiterScreen} />
+    <Stack.Screen name="register" component={RegisterScreen} />
   </Stack.Navigator>
 );
 

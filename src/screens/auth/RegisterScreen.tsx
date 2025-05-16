@@ -5,7 +5,7 @@ import {ArrowsSvg} from '../../assets/svg';
 import {Logo} from '../../assets/images';
 import InputFieldComponent from '../../components/InputFieldComponent';
 
-const RegsiterScreen = () => {
+const RegisterScreen = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -93,4 +93,4 @@ const RegsiterScreen = () => {
   );
 };
 
-export default RegsiterScreen;
+export default RegisterScreen;
