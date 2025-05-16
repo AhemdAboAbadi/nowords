@@ -1,25 +1,19 @@
 import React, {useState} from 'react';
-import {
-  Text,
-  TextInput as RNTextInput,
-  TouchableOpacity,
-  View,
-  Image,
-} from 'react-native';
+import {Text, TouchableOpacity, View, Image} from 'react-native';
 import ScreenWrapper from '../../components/ScreenWrapper';
-import {
-  ArrowsSvg,
-  EmailIcon,
-  LockPasswordIcon,
-  PhoneIcon,
-} from '../../assets/svg';
+import {ArrowsSvg} from '../../assets/svg';
 import {Logo} from '../../assets/images';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackNavigatorParams} from '../../navigation/types';
+import InputFieldComponent from '../../components/InputFieldComponent';
 
 const LoginScreen = () => {
   const [usePhone, setUsePhone] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
+  const {navigate} = useNavigation<NavigationProp<RootStackNavigatorParams>>();
   return (
     <ScreenWrapper>
       <View className="bg-white rounded-3xl p-6 w-[90%] self-center mt-28 shadow-lg z-10">
@@ -35,7 +29,7 @@ const LoginScreen = () => {
         </Text>
 
         {/* Toggle between Email and Phone */}
-        <View className="flex-row bg-[#F4F4F4] rounded-full p-1 mt-6 w-[264px] self-center h-[46px]">
+        <View className="flex-row bg-[#F4F4F4] mb-[29px] rounded-full p-1 mt-6 w-[264px] self-center h-[46px]">
           <TouchableOpacity
             className={`flex-1 rounded-full py-3 h-full ${
               !usePhone ? 'bg-primary' : ''
@@ -63,40 +57,24 @@ const LoginScreen = () => {
         </View>
 
         {/* Input Field - Email or Phone */}
-        <View className="mt-6">
-          <Text className="text-sm font-medium text-gray-800 mb-2">
-            {/* {usePhone ? 'Phone no' : 'Email'} * */}
-          </Text>
-          <View className="flex flex-row items-center border border-gray-300 rounded-xl px-4">
-            {usePhone ? <PhoneIcon /> : <EmailIcon />}
-            <View className="absolute -top-2 left-4 bg-white px-1 z-10">
-              <Text className="text-sm text-[#1F1F39] font-semibold">
-                {usePhone ? 'Phone no' : 'Email'}
-                <Text className="text-red-500">*</Text>
-              </Text>
-            </View>
-            <RNTextInput
-              placeholder={usePhone ? '05XXXXXXXX' : 'abc@gmail.com'}
-              className="flex-1 ml-2 text-m text-gray-700 h-[48px]"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType={usePhone ? 'phone-pad' : 'email-address'}
-              autoCapitalize="none"
-            />
-          </View>
-        </View>
+        <InputFieldComponent
+          label={usePhone ? 'Phone no' : 'Email'}
+          value={email}
+          onChangeText={setEmail}
+          placeholder={usePhone ? '05XXXXXXXX' : 'abc@gmail.com'}
+          type={usePhone ? 'phone' : 'email'}
+        />
 
         {/* Password Field */}
-        <View className="flex flex-row items-center border border-gray-300 rounded-xl px-4  mt-[24px]">
-          <LockPasswordIcon />
-          <RNTextInput
-            placeholder="********"
-            className="flex-1 ml-2 text-m text-gray-700 h-[48px]"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-        </View>
+        <InputFieldComponent
+          label="Password"
+          value={password}
+          onChangeText={setPassword}
+          placeholder="********"
+          type="password"
+          showPassword={showPassword}
+          onTogglePassword={() => setShowPassword(!showPassword)}
+        />
 
         <Text className="text-right text-sm text-blue-600 mt-[26px] mb-[37px]">
           Forgot password?
@@ -114,7 +92,11 @@ const LoginScreen = () => {
 
         <Text className="text-center text-sm mt-[47px] mb-[36px]">
           First time came here?{' '}
-          <Text className="text-[#3E8283] font-semibold underline cursor-pointer">
+          <Text
+            className="text-[#3E8283] font-semibold underline cursor-pointer"
+            onPress={() => {
+              navigate('register');
+            }}>
             Sign up for free
           </Text>
         </Text>
