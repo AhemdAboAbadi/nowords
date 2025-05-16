@@ -81,7 +81,7 @@ const LoginScreen = () => {
         </Text>
 
         <TouchableOpacity className="flex-row items-center justify-between mt-5 h-[56px] bg-primary rounded-full px-4 w-[264px] self-center">
-          <Text className="text-white font-Archivo font-medium text-[14px] leading-[100%] tracking-[0] text-center ml-2">
+          <Text className="text-white font-Archivo font-bold text-[14px] leading-[100%] tracking-[0] text-center ml-2">
             Login account
           </Text>
 
